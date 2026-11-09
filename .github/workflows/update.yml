@@ -2,11 +2,8 @@ name: Update Schedule
 
 on:
   schedule:
-    - cron: '*/20 * * * *' # Запускати кожні 20 хвилин автоматично
-  workflow_dispatch:      # Дозволяє запускати вручну кнопкою
-
-permissions:
-  contents: write         # Дозвіл на запис (щоб бот міг оновлювати schedule.json у репозиторії)
+    - cron: '*/20 * * * *'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -27,9 +24,12 @@ jobs:
         run: python parser.py
 
       - name: Commit and Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git add schedule.json
           git commit -m "Auto-update schedule" || exit 0
           git push
