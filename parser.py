@@ -97,3 +97,4 @@ if __name__ == "__main__":
     with open("schedule.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     print("schedule.json saved successfully.")
+
