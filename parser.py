@@ -15,36 +15,40 @@ def fetch_latest_schedule():
         return None
 
     soup = BeautifulSoup(response.text, 'html.parser')
-    messages = soup.find_all('div', class_='tgme_widget_message')
     
-    print(f"Found messages count: {len(messages)}")
+    # Шукаємо всі можливі блоки повідомлень у віджеті Telegram
+    messages = soup.find_all(['div', 'section'], class_=lambda x: x and 'message' in x)
+    print(f"Found message blocks: {len(messages)}")
+    
     if not messages:
-        return None
+        # Запасний варіант: шукаємо просто всі блоки тексту на сторінці
+        messages = soup.find_all('div', class_='tgme_widget_message_text')
 
     for msg in reversed(messages):
-        text_div = msg.find('div', class_='tgme_widget_message_text')
-        if not text_div:
-            continue
+        msg_text = msg.text
         
-        msg_text = text_div.text
-        
-        # Перевіряємо, чи є в повідомленні графік відключень
+        # Перевіряємо, чи є в тексті згадка черг
         if "черга" not in msg_text.lower():
             continue
 
-        # Витягуємо час публікації поста
-        time_tag = msg.find('time', class_='tgme_widget_message_date')
+        # Витягуємо час публікації, якщо є тег часу
+        time_tag = msg.find('time') if hasattr(msg, 'find') else None
         post_time_str = "--:--"
         if time_tag and time_tag.has_attr('datetime'):
             dt_raw = time_tag['datetime']
             try:
                 time_part = dt_raw.split('T')[1][:5]
                 h, m = map(int, time_part.split(':'))
-                # Коригування під київський час (UTC+2 / UTC+3, тут додаємо 2 год або витягуємо чистий час)
-                h = (h + 2) % 24
+                h = (h + 2) % 24  # коригування під Київ
                 post_time_str = f"{h:02d}:{m:02d}"
             except Exception:
-                post_time_str = "назад"
+                pass
+
+        # Якщо час не знайшли через тег, спробуємо витягнути з самого тексту (наприклад, "станом на 18:51")
+        if post_time_str == "--:--":
+            time_match = re.search(r'станом на (\d{2}):(\d{2})', msg_text, re.IGNORECASE)
+            if time_match:
+                post_time_str = f"{time_match.group(1)}:{time_match.group(2)}"
 
         # Шукаємо дату у форматі DD.MM.YYYY
         date_match = re.search(r'(\d{2})\.(\d{2})\.(\d{4})', msg_text)
@@ -55,8 +59,7 @@ def fetch_latest_schedule():
         formatted_date = f"{year}-{month}-{day}"
 
         subqueues = {}
-        # Шукаємо всі згадки черг у тексті (наприклад, "Черга 1.1: 07-08, 10-12...")
-        # Використовуємо знаходження за шаблоном "Черга X.X"
+        # Шукаємо всі блоки з чергами
         queue_matches = re.finditer(r'Черга\s+(\d\.\d)[:\s]*([^\n]+)', msg_text, re.IGNORECASE)
         
         for q_match in queue_matches:
@@ -64,7 +67,6 @@ def fetch_latest_schedule():
             hours_part = q_match.group(2)
             
             intervals = []
-            # Знаходимо всі часові пари типу 07-08, 18-20 тощо
             time_blocks = re.findall(r'(\d{2})-(\d{2})', hours_part)
             
             for start_h, end_h in time_blocks:
