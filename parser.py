@@ -24,26 +24,31 @@ def fetch_latest_schedule():
     for msg in reversed(messages):
         msg_text = msg.text
         
-        # Шукаємо пости з графіками
-        if "Черга" not in msg_text or not re.search(r'\d{2}-\d{2}', msg_text):
+        # Шукаємо пости про зміни до графіку або погодинні відключення
+        if "графіка погодинних відключень" not in msg_text.lower() and "черга" not in msg_text.lower():
             continue
 
+        # Шукаємо дату у форматі DD.MM.YYYY (наприклад, 09.11.2026)
         date_match = re.search(r'(\d{2})\.(\d{2})\.(\d{4})', msg_text)
         if not date_match:
-            # Спробуємо знайти альтернативний формат дати або пропустимо
             continue
         
         day, month, year = date_match.groups()
         formatted_date = f"{year}-{month}-{day}"
 
         subqueues = {}
-        pattern = r'Черга\s+(\d\.\d):\s*([^\n]+)'
-        matches = re.findall(pattern, msg_text)
-
-        if matches:
-            for queue_num, hours_str in matches:
+        # Шукаємо рядки типу "Черга 1.1: 07-08, 10-12, 14-16..."
+        lines = msg_text.split('\n')
+        for line in lines:
+            line = line.strip()
+            queue_match = re.search(r'Черга\s+(\d\.\d):\s*(.+)', line)
+            if queue_match:
+                queue_num = queue_match.group(1)
+                hours_part = queue_match.group(2)
+                
                 intervals = []
-                time_blocks = re.findall(r'(\d{2})-(\d{2})', hours_str)
+                # Знаходимо всі часові проміжки типу "07-08", "10-12" або "22-24"
+                time_blocks = re.findall(r'(\d{2})-(\d{2})', hours_part)
                 
                 for start_h, end_h in time_blocks:
                     end_val = "24:00" if end_h == "24" else f"{end_h}:00"
@@ -53,18 +58,19 @@ def fetch_latest_schedule():
                         "status": "off"
                     })
                 
-                subqueues[queue_num] = intervals
+                if intervals:
+                    subqueues[queue_num] = intervals
 
-            if subqueues:
-                print(f"Successfully parsed schedule for date: {formatted_date}")
-                return {
-                    "timezone": "Europe/Kyiv",
-                    "schedules": {
-                        formatted_date: {
-                            "subqueues": subqueues
-                        }
+        if subqueues:
+            print(f"Successfully parsed schedule for date: {formatted_date}")
+            return {
+                "timezone": "Europe/Kyiv",
+                "schedules": {
+                    formatted_date: {
+                        "subqueues": subqueues
                     }
                 }
+            }
                 
     print("No valid schedule post matched criteria.")
     return None
@@ -72,13 +78,12 @@ def fetch_latest_schedule():
 if __name__ == "__main__":
     data = fetch_latest_schedule()
     
-    # Якщо дані не знайдені, створюємо базову заглушку, щоб файл завжди існував
     if not data:
         data = {
             "timezone": "Europe/Kyiv",
             "schedules": {}
         }
-        print("Writing empty schedule template.")
+        print("Using empty template fallback.")
 
     with open("schedule.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
