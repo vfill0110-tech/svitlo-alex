@@ -1,4 +1,4 @@
-єimport re
+import re
 import json
 import requests
 from bs4 import BeautifulSoup
@@ -16,7 +16,6 @@ def fetch_latest_schedule():
 
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    # Шукаємо всі блоки повідомлень на сторінці попереднього перегляду Telegram
     messages = soup.find_all('div', class_='tgme_widget_message')
     print(f"Found message blocks: {len(messages)}")
     
@@ -30,11 +29,9 @@ def fetch_latest_schedule():
             
         msg_text = text_div.text
         
-        # Перевіряємо, чи є в повідомленні згадка черг
         if "черга" not in msg_text.lower():
             continue
 
-        # Витягуємо час публікації з тегу часу
         time_tag = msg.find('time', class_='tgme_widget_message_date') if hasattr(msg, 'find') else None
         post_time_str = "--:--"
         if time_tag and time_tag.has_attr('datetime'):
@@ -42,18 +39,16 @@ def fetch_latest_schedule():
             try:
                 time_part = dt_raw.split('T')[1][:5]
                 h, m = map(int, time_part.split(':'))
-                h = (h + 2) % 24  # коригування під київський час
+                h = (h + 2) % 24
                 post_time_str = f"{h:02d}:{m:02d}"
             except Exception:
                 pass
 
-        # Якщо тег не спрацював, шукаємо час у тексті (наприклад, "станом на 18:51")
         if post_time_str == "--:--":
             time_match = re.search(r'станом на (\d{2}):(\d{2})', msg_text, re.IGNORECASE)
             if time_match:
                 post_time_str = f"{time_match.group(1)}:{time_match.group(2)}"
 
-        # Шукаємо дату у форматі DD.MM.YYYY
         date_match = re.search(r'(\d{2})\.(\d{2})\.(\d{4})', msg_text)
         if not date_match:
             continue
@@ -62,7 +57,6 @@ def fetch_latest_schedule():
         formatted_date = f"{year}-{month}-{day}"
 
         subqueues = {}
-        # Шукаємо рядки або блоки з чергами та годинами
         queue_matches = re.finditer(r'Черга\s+(\d\.\d)[:\s]*([^\n]+)', msg_text, re.IGNORECASE)
         
         for q_match in queue_matches:
