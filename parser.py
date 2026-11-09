@@ -16,29 +16,29 @@ def fetch_latest_schedule():
 
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    # Забираємо абсолютно всі блоки тексту зі сторінки, де можуть бути повідомлення
-    text_elements = soup.find_all(['div', 'span', 'p'], class_=lambda x: x and ('text' in x or 'message' in x))
-    
-    # Якщо не знайшло за класами, беремо всі теги взагалі
-    if not text_elements:
-        text_elements = soup.find_all('div')
+    # Збираємо всі блоки повідомлень
+    messages = soup.find_all('div', class_='tgme_widget_message')
+    if not messages:
+        messages = soup.find_all('div', class_='tgme_widget_message_text')
 
-    print(f"Found potential text blocks: {len(text_elements)}")
-
-    for el in reversed(text_elements):
-        msg_text = el.get_text()
+    for msg in reversed(messages):
+        text_div = msg.find('div', class_='tgme_widget_message_text') if hasattr(msg, 'find') else msg
+        if not text_div:
+            continue
+            
+        msg_text = text_div.text
         
-        # Нам потрібні тільки пости, де є розклад для черг
-        if "черга 1.1" not in msg_text.lower() and "графіка погодинних відключень" not in msg_text.lower():
+        # Перевіряємо, чи є в повідомленні розклад
+        if "черга" not in msg_text.lower():
             continue
 
-        # Шукаємо час публікації або час зі слова "станом на HH:MM"
+        # Витягуємо час публікації
         post_time_str = "--:--"
         time_match = re.search(r'станом на (\d{2}):(\d{2})', msg_text, re.IGNORECASE)
         if time_match:
             post_time_str = f"{time_match.group(1)}:{time_match.group(2)}"
 
-        # Шукаємо дату у форматі DD.MM.YYYY (наприклад, 09.11.2026)
+        # Шукаємо дату у форматі DD.MM.YYYY
         date_match = re.search(r'(\d{2})\.(\d{2})\.(\d{4})', msg_text)
         if not date_match:
             continue
@@ -47,26 +47,32 @@ def fetch_latest_schedule():
         formatted_date = f"{year}-{month}-{day}"
 
         subqueues = {}
-        # Шукаємо всі згадки черг у тексті
-        queue_matches = re.finditer(r'Черга\s+(\d\.\d)[:\s]*([^\n]+)', msg_text, re.IGNORECASE)
         
-        for q_match in queue_matches:
-            queue_num = q_match.group(1)
-            hours_part = q_match.group(2)
-            
-            intervals = []
-            time_blocks = re.findall(r'(\d{2})-(\d{2})', hours_part)
-            
-            for start_h, end_h in time_blocks:
-                end_val = "24:00" if end_h == "24" else f"{end_h}:00"
-                intervals.append({
-                    "start": f"{start_h}:00",
-                    "end": end_val,
-                    "status": "off"
-                })
-            
-            if intervals:
-                subqueues[queue_num] = intervals
+        # Проходимо по кожній черзі від 1.1 до 6.2 окремо, щоб гарантовано зловити її години
+        for q_main in range(1, 7):
+            for sub in [1, 2]:
+                q_num = f"{q_main}.{sub}"
+                
+                # Шукаємо шаблон типу "Черга 1.1: [годинник]" або аналогічний
+                # Шукаємо взірець десь у тексті
+                pattern = rf"Черга\s+{q_num}[:\s]*([0-9,\-\s]+)"
+                match = re.search(pattern, msg_text, re.IGNORECASE)
+                
+                if match:
+                    hours_part = match.group(1)
+                    intervals = []
+                    time_blocks = re.findall(r'(\d{2})-(\d{2})', hours_part)
+                    
+                    for start_h, end_h in time_blocks:
+                        end_val = "24:00" if end_h == "24" else f"{end_h}:00"
+                        intervals.append({
+                            "start": f"{start_h}:00",
+                            "end": end_val,
+                            "status": "off"
+                        })
+                    
+                    if intervals:
+                        subqueues[q_num] = intervals
 
         if subqueues:
             print(f"Successfully parsed schedule for date: {formatted_date} with post time: {post_time_str}")
@@ -97,4 +103,3 @@ if __name__ == "__main__":
     with open("schedule.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     print("schedule.json saved successfully.")
-
