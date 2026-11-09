@@ -1,9 +1,9 @@
-import re
+єimport re
 import json
 import requests
 from bs4 import BeautifulSoup
 
-CHANNEL_URL = "https://t.me/s/svitlo_alex"
+CHANNEL_URL = "https://t.me/s/SvitloOleksandriyskohoRaionu"
 
 def fetch_latest_schedule():
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
@@ -16,35 +16,38 @@ def fetch_latest_schedule():
 
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    # Шукаємо всі можливі блоки повідомлень у віджеті Telegram
-    messages = soup.find_all(['div', 'section'], class_=lambda x: x and 'message' in x)
+    # Шукаємо всі блоки повідомлень на сторінці попереднього перегляду Telegram
+    messages = soup.find_all('div', class_='tgme_widget_message')
     print(f"Found message blocks: {len(messages)}")
     
     if not messages:
-        # Запасний варіант: шукаємо просто всі блоки тексту на сторінці
         messages = soup.find_all('div', class_='tgme_widget_message_text')
 
     for msg in reversed(messages):
-        msg_text = msg.text
+        text_div = msg.find('div', class_='tgme_widget_message_text') if hasattr(msg, 'find') else msg
+        if not text_div:
+            continue
+            
+        msg_text = text_div.text
         
-        # Перевіряємо, чи є в тексті згадка черг
+        # Перевіряємо, чи є в повідомленні згадка черг
         if "черга" not in msg_text.lower():
             continue
 
-        # Витягуємо час публікації, якщо є тег часу
-        time_tag = msg.find('time') if hasattr(msg, 'find') else None
+        # Витягуємо час публікації з тегу часу
+        time_tag = msg.find('time', class_='tgme_widget_message_date') if hasattr(msg, 'find') else None
         post_time_str = "--:--"
         if time_tag and time_tag.has_attr('datetime'):
             dt_raw = time_tag['datetime']
             try:
                 time_part = dt_raw.split('T')[1][:5]
                 h, m = map(int, time_part.split(':'))
-                h = (h + 2) % 24  # коригування під Київ
+                h = (h + 2) % 24  # коригування під київський час
                 post_time_str = f"{h:02d}:{m:02d}"
             except Exception:
                 pass
 
-        # Якщо час не знайшли через тег, спробуємо витягнути з самого тексту (наприклад, "станом на 18:51")
+        # Якщо тег не спрацював, шукаємо час у тексті (наприклад, "станом на 18:51")
         if post_time_str == "--:--":
             time_match = re.search(r'станом на (\d{2}):(\d{2})', msg_text, re.IGNORECASE)
             if time_match:
@@ -59,7 +62,7 @@ def fetch_latest_schedule():
         formatted_date = f"{year}-{month}-{day}"
 
         subqueues = {}
-        # Шукаємо всі блоки з чергами
+        # Шукаємо рядки або блоки з чергами та годинами
         queue_matches = re.finditer(r'Черга\s+(\d\.\d)[:\s]*([^\n]+)', msg_text, re.IGNORECASE)
         
         for q_match in queue_matches:
