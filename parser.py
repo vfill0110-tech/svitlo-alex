@@ -24,11 +24,11 @@ def fetch_latest_schedule():
     for msg in reversed(messages):
         msg_text = msg.text
         
-        # Шукаємо пости про зміни до графіку або погодинні відключення
+        # Шукаємо пости, що стосуються графіків погодинних відключень
         if "графіка погодинних відключень" not in msg_text.lower() and "черга" not in msg_text.lower():
             continue
 
-        # Шукаємо дату у форматі DD.MM.YYYY (наприклад, 09.11.2026)
+        # Шукаємо дату у форматі DD.MM.YYYY
         date_match = re.search(r'(\d{2})\.(\d{2})\.(\d{4})', msg_text)
         if not date_match:
             continue
@@ -37,7 +37,6 @@ def fetch_latest_schedule():
         formatted_date = f"{year}-{month}-{day}"
 
         subqueues = {}
-        # Шукаємо рядки типу "Черга 1.1: 07-08, 10-12, 14-16..."
         lines = msg_text.split('\n')
         for line in lines:
             line = line.strip()
@@ -47,7 +46,6 @@ def fetch_latest_schedule():
                 hours_part = queue_match.group(2)
                 
                 intervals = []
-                # Знаходимо всі часові проміжки типу "07-08", "10-12" або "22-24"
                 time_blocks = re.findall(r'(\d{2})-(\d{2})', hours_part)
                 
                 for start_h, end_h in time_blocks:
