@@ -16,39 +16,29 @@ def fetch_latest_schedule():
 
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    messages = soup.find_all('div', class_='tgme_widget_message')
-    print(f"Found message blocks: {len(messages)}")
+    # Забираємо абсолютно всі блоки тексту зі сторінки, де можуть бути повідомлення
+    text_elements = soup.find_all(['div', 'span', 'p'], class_=lambda x: x and ('text' in x or 'message' in x))
     
-    if not messages:
-        messages = soup.find_all('div', class_='tgme_widget_message_text')
+    # Якщо не знайшло за класами, беремо всі теги взагалі
+    if not text_elements:
+        text_elements = soup.find_all('div')
 
-    for msg in reversed(messages):
-        text_div = msg.find('div', class_='tgme_widget_message_text') if hasattr(msg, 'find') else msg
-        if not text_div:
-            continue
-            
-        msg_text = text_div.text
+    print(f"Found potential text blocks: {len(text_elements)}")
+
+    for el in reversed(text_elements):
+        msg_text = el.get_text()
         
-        if "черга" not in msg_text.lower():
+        # Нам потрібні тільки пости, де є розклад для черг
+        if "черга 1.1" not in msg_text.lower() and "графіка погодинних відключень" not in msg_text.lower():
             continue
 
-        time_tag = msg.find('time', class_='tgme_widget_message_date') if hasattr(msg, 'find') else None
+        # Шукаємо час публікації або час зі слова "станом на HH:MM"
         post_time_str = "--:--"
-        if time_tag and time_tag.has_attr('datetime'):
-            dt_raw = time_tag['datetime']
-            try:
-                time_part = dt_raw.split('T')[1][:5]
-                h, m = map(int, time_part.split(':'))
-                h = (h + 2) % 24
-                post_time_str = f"{h:02d}:{m:02d}"
-            except Exception:
-                pass
+        time_match = re.search(r'станом на (\d{2}):(\d{2})', msg_text, re.IGNORECASE)
+        if time_match:
+            post_time_str = f"{time_match.group(1)}:{time_match.group(2)}"
 
-        if post_time_str == "--:--":
-            time_match = re.search(r'станом на (\d{2}):(\d{2})', msg_text, re.IGNORECASE)
-            if time_match:
-                post_time_str = f"{time_match.group(1)}:{time_match.group(2)}"
-
+        # Шукаємо дату у форматі DD.MM.YYYY (наприклад, 09.11.2026)
         date_match = re.search(r'(\d{2})\.(\d{2})\.(\d{4})', msg_text)
         if not date_match:
             continue
@@ -57,6 +47,7 @@ def fetch_latest_schedule():
         formatted_date = f"{year}-{month}-{day}"
 
         subqueues = {}
+        # Шукаємо всі згадки черг у тексті
         queue_matches = re.finditer(r'Черга\s+(\d\.\d)[:\s]*([^\n]+)', msg_text, re.IGNORECASE)
         
         for q_match in queue_matches:
