@@ -15,18 +15,36 @@ def fetch_latest_schedule():
         return None
 
     soup = BeautifulSoup(response.text, 'html.parser')
-    messages = soup.find_all('div', class_='tgme_widget_message_text')
+    messages = soup.find_all('div', class_='tgme_widget_message')
     
     print(f"Found messages count: {len(messages)}")
     if not messages:
         return None
 
     for msg in reversed(messages):
-        msg_text = msg.text
-        
-        # Шукаємо пости, що стосуються графіків погодинних відключень
-        if "графіка погодинних відключень" not in msg_text.lower() and "черга" not in msg_text.lower():
+        text_div = msg.find('div', class_='tgme_widget_message_text')
+        if not text_div:
             continue
+        
+        msg_text = text_div.text
+        if "черга" not in msg_text.lower():
+            continue
+
+        # Шукаємо час публікації поста (тег <time>)
+        time_tag = msg.find('time', class_='tgme_widget_message_date')
+        post_time_str = "щойно"
+        if time_tag and time_tag.has_attr('datetime'):
+            # Формат datetime зазвичай виглядає як "2026-11-09T18:51:00+00:00"
+            dt_raw = time_tag['datetime']
+            try:
+                # Витягуємо години та хвилини і переводимо у київський час (+2 або +3, або беремо з рядка)
+                time_part = dt_raw.split('T')[1][:5]
+                # Додаємо 2 години до UTC (або можна залишити як є, якщо сайт у UTC)
+                h, m = map(int, time_part.split(':'))
+                h = (h + 2) % 24  # приблизна корекція під Київ (або просто відображаємо)
+                post_time_str = f"{h:02d}:{m:02d}"
+            except Exception:
+                post_time_str = time_part if 'time_part' in locals() else "невідомо"
 
         # Шукаємо дату у форматі DD.MM.YYYY
         date_match = re.search(r'(\d{2})\.(\d{2})\.(\d{4})', msg_text)
@@ -40,7 +58,7 @@ def fetch_latest_schedule():
         lines = msg_text.split('\n')
         for line in lines:
             line = line.strip()
-            queue_match = re.search(r'Черга\s+(\d\.\d):\s*(.+)', line)
+            queue_match = re.search(r'Черга\s+(\d\.\d)[:\s]*(.+)', line, re.IGNORECASE)
             if queue_match:
                 queue_num = queue_match.group(1)
                 hours_part = queue_match.group(2)
@@ -60,9 +78,10 @@ def fetch_latest_schedule():
                     subqueues[queue_num] = intervals
 
         if subqueues:
-            print(f"Successfully parsed schedule for date: {formatted_date}")
+            print(f"Successfully parsed schedule for date: {formatted_date} with post time: {post_time_str}")
             return {
                 "timezone": "Europe/Kyiv",
+                "last_post_time": post_time_str,
                 "schedules": {
                     formatted_date: {
                         "subqueues": subqueues
@@ -79,6 +98,7 @@ if __name__ == "__main__":
     if not data:
         data = {
             "timezone": "Europe/Kyiv",
+            "last_post_time": "--:--",
             "schedules": {}
         }
         print("Using empty template fallback.")
