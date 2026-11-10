@@ -1,6 +1,6 @@
 {
   "timezone": "Europe/Kyiv",
-  "last_post_time": "06:44",
+  "last_post_time": "11:37",
   "schedules": {
     "2026-11-09": {
       "subqueues": {
@@ -294,11 +294,6 @@
             "status": "off"
           },
           {
-            "start": "18:00",
-            "end": "20:00",
-            "status": "off"
-          },
-          {
             "start": "22:00",
             "end": "24:00",
             "status": "off"
@@ -316,11 +311,6 @@
             "status": "off"
           },
           {
-            "start": "18:00",
-            "end": "20:00",
-            "status": "off"
-          },
-          {
             "start": "22:00",
             "end": "24:00",
             "status": "off"
@@ -335,11 +325,6 @@
           {
             "start": "10:00",
             "end": "12:00",
-            "status": "off"
-          },
-          {
-            "start": "14:00",
-            "end": "16:00",
             "status": "off"
           },
           {
@@ -362,11 +347,6 @@
           {
             "start": "10:00",
             "end": "12:00",
-            "status": "off"
-          },
-          {
-            "start": "14:00",
-            "end": "16:00",
             "status": "off"
           },
           {
@@ -426,11 +406,6 @@
             "status": "off"
           },
           {
-            "start": "16:00",
-            "end": "18:00",
-            "status": "off"
-          },
-          {
             "start": "20:00",
             "end": "22:00",
             "status": "off"
@@ -448,11 +423,6 @@
             "status": "off"
           },
           {
-            "start": "16:00",
-            "end": "18:00",
-            "status": "off"
-          },
-          {
             "start": "20:00",
             "end": "22:00",
             "status": "off"
@@ -462,11 +432,6 @@
           {
             "start": "08:00",
             "end": "10:00",
-            "status": "off"
-          },
-          {
-            "start": "12:00",
-            "end": "14:00",
             "status": "off"
           },
           {
@@ -484,11 +449,6 @@
           {
             "start": "08:00",
             "end": "10:00",
-            "status": "off"
-          },
-          {
-            "start": "12:00",
-            "end": "14:00",
             "status": "off"
           },
           {
@@ -512,11 +472,6 @@
             "start": "16:00",
             "end": "18:00",
             "status": "off"
-          },
-          {
-            "start": "20:00",
-            "end": "22:00",
-            "status": "off"
           }
         ],
         "6.2": [
@@ -528,11 +483,6 @@
           {
             "start": "16:00",
             "end": "18:00",
-            "status": "off"
-          },
-          {
-            "start": "20:00",
-            "end": "22:00",
             "status": "off"
           }
         ]
