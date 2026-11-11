@@ -1,6 +1,6 @@
 {
   "timezone": "Europe/Kyiv",
-  "last_post_time": "00:58",
+  "last_post_time": "05:20",
   "schedules": {
     "2026-11-10": {
       "subqueues": {
@@ -342,11 +342,6 @@
         ],
         "3.1": [
           {
-            "start": "06:00",
-            "end": "08:00",
-            "status": "off"
-          },
-          {
             "start": "10:00",
             "end": "12:00",
             "status": "off"
@@ -368,11 +363,6 @@
           }
         ],
         "3.2": [
-          {
-            "start": "06:00",
-            "end": "08:00",
-            "status": "off"
-          },
           {
             "start": "10:00",
             "end": "12:00",
