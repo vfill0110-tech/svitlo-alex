@@ -1,6 +1,6 @@
 {
   "timezone": "Europe/Kyiv",
-  "last_post_time": "15:40",
+  "last_post_time": "16:13",
   "schedules": {
     "2026-11-10": {
       "subqueues": {
@@ -278,6 +278,11 @@
             "status": "off"
           },
           {
+            "start": "18:00",
+            "end": "20:00",
+            "status": "off"
+          },
+          {
             "start": "22:00",
             "end": "24:00",
             "status": "off"
@@ -295,6 +300,25 @@
             "status": "off"
           },
           {
+            "start": "18:00",
+            "end": "20:00",
+            "status": "off"
+          },
+          {
+            "start": "22:00",
+            "end": "24:00",
+            "status": "off"
+          }
+        ],
+        "3.1": [
+          {
+            "start": "22:00",
+            "end": "24:00",
+            "status": "off"
+          }
+        ],
+        "3.2": [
+          {
             "start": "22:00",
             "end": "24:00",
             "status": "off"
@@ -310,12 +334,22 @@
             "start": "12:00",
             "end": "13:00",
             "status": "off"
+          },
+          {
+            "start": "16:30",
+            "end": "18:00",
+            "status": "off"
           }
         ],
         "4.2": [
           {
             "start": "00:00",
             "end": "01:00",
+            "status": "off"
+          },
+          {
+            "start": "16:30",
+            "end": "18:00",
             "status": "off"
           }
         ],
@@ -348,12 +382,22 @@
             "start": "16:00",
             "end": "18:00",
             "status": "off"
+          },
+          {
+            "start": "20:00",
+            "end": "22:00",
+            "status": "off"
           }
         ],
         "6.2": [
           {
             "start": "16:00",
             "end": "18:00",
+            "status": "off"
+          },
+          {
+            "start": "20:00",
+            "end": "22:00",
             "status": "off"
           }
         ]
