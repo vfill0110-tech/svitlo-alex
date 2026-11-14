@@ -1,6 +1,6 @@
 {
   "timezone": "Europe/Kyiv",
-  "last_post_time": "06:49",
+  "last_post_time": "07:58",
   "schedules": {
     "2026-11-13": {
       "subqueues": {
@@ -241,7 +241,7 @@
         ],
         "4.1": [
           {
-            "start": "08:00",
+            "start": "09:00",
             "end": "10:00",
             "status": "off"
           },
@@ -258,7 +258,7 @@
         ],
         "4.2": [
           {
-            "start": "08:00",
+            "start": "09:00",
             "end": "10:00",
             "status": "off"
           },
@@ -275,7 +275,7 @@
         ],
         "5.1": [
           {
-            "start": "08:00",
+            "start": "09:00",
             "end": "10:00",
             "status": "off"
           },
@@ -292,7 +292,7 @@
         ],
         "5.2": [
           {
-            "start": "08:00",
+            "start": "09:00",
             "end": "10:00",
             "status": "off"
           },
