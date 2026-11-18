@@ -1,6 +1,6 @@
 {
   "timezone": "Europe/Kyiv",
-  "last_post_time": "11:39",
+  "last_post_time": "13:53",
   "schedules": {
     "2026-11-17": {
       "subqueues": {
@@ -397,11 +397,6 @@
             "start": "08:00",
             "end": "10:00",
             "status": "off"
-          },
-          {
-            "start": "20:00",
-            "end": "22:00",
-            "status": "off"
           }
         ],
         "1.2": [
@@ -409,27 +404,12 @@
             "start": "08:00",
             "end": "10:00",
             "status": "off"
-          },
-          {
-            "start": "20:00",
-            "end": "22:00",
-            "status": "off"
           }
         ],
         "2.1": [
           {
             "start": "00:00",
             "end": "02:00",
-            "status": "off"
-          },
-          {
-            "start": "16:00",
-            "end": "18:00",
-            "status": "off"
-          },
-          {
-            "start": "20:00",
-            "end": "22:00",
             "status": "off"
           }
         ],
@@ -450,11 +430,6 @@
             "start": "04:00",
             "end": "06:00",
             "status": "off"
-          },
-          {
-            "start": "16:00",
-            "end": "18:00",
-            "status": "off"
           }
         ],
         "3.2": [
@@ -467,22 +442,12 @@
             "start": "04:00",
             "end": "06:00",
             "status": "off"
-          },
-          {
-            "start": "16:00",
-            "end": "18:00",
-            "status": "off"
           }
         ],
         "4.1": [
           {
             "start": "10:00",
             "end": "12:00",
-            "status": "off"
-          },
-          {
-            "start": "18:00",
-            "end": "20:00",
             "status": "off"
           }
         ],
@@ -491,22 +456,12 @@
             "start": "10:00",
             "end": "12:00",
             "status": "off"
-          },
-          {
-            "start": "18:00",
-            "end": "20:00",
-            "status": "off"
           }
         ],
         "5.1": [
           {
             "start": "02:00",
             "end": "04:00",
-            "status": "off"
-          },
-          {
-            "start": "18:00",
-            "end": "20:00",
             "status": "off"
           }
         ],
@@ -515,11 +470,6 @@
             "start": "02:00",
             "end": "04:00",
             "status": "off"
-          },
-          {
-            "start": "14:00",
-            "end": "16:00",
-            "status": "off"
           }
         ],
         "6.1": [
@@ -527,32 +477,12 @@
             "start": "06:00",
             "end": "08:00",
             "status": "off"
-          },
-          {
-            "start": "14:00",
-            "end": "16:00",
-            "status": "off"
-          },
-          {
-            "start": "22:00",
-            "end": "24:00",
-            "status": "off"
           }
         ],
         "6.2": [
           {
             "start": "06:00",
             "end": "08:00",
-            "status": "off"
-          },
-          {
-            "start": "14:00",
-            "end": "16:00",
-            "status": "off"
-          },
-          {
-            "start": "22:00",
-            "end": "24:00",
             "status": "off"
           }
         ]
