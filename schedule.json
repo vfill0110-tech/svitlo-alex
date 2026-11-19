@@ -1,6 +1,6 @@
 {
   "timezone": "Europe/Kyiv",
-  "last_post_time": "05:39",
+  "last_post_time": "07:51",
   "schedules": {
     "2026-11-18": {
       "subqueues": {
@@ -102,160 +102,10 @@
     },
     "2026-11-19": {
       "subqueues": {
-        "1.1": [
-          {
-            "start": "12:00",
-            "end": "14:00",
-            "status": "off"
-          },
-          {
-            "start": "20:00",
-            "end": "22:00",
-            "status": "off"
-          }
-        ],
-        "1.2": [
-          {
-            "start": "12:00",
-            "end": "14:00",
-            "status": "off"
-          },
-          {
-            "start": "20:00",
-            "end": "22:00",
-            "status": "off"
-          }
-        ],
-        "2.1": [
-          {
-            "start": "12:00",
-            "end": "14:00",
-            "status": "off"
-          },
-          {
-            "start": "16:00",
-            "end": "18:00",
-            "status": "off"
-          },
-          {
-            "start": "20:00",
-            "end": "22:00",
-            "status": "off"
-          }
-        ],
-        "2.2": [
-          {
-            "start": "08:00",
-            "end": "10:00",
-            "status": "off"
-          },
-          {
-            "start": "16:00",
-            "end": "18:00",
-            "status": "off"
-          },
-          {
-            "start": "20:00",
-            "end": "22:00",
-            "status": "off"
-          }
-        ],
-        "3.1": [
-          {
-            "start": "08:00",
-            "end": "10:00",
-            "status": "off"
-          },
-          {
-            "start": "16:00",
-            "end": "18:00",
-            "status": "off"
-          }
-        ],
-        "3.2": [
-          {
-            "start": "08:00",
-            "end": "10:00",
-            "status": "off"
-          },
-          {
-            "start": "16:00",
-            "end": "18:00",
-            "status": "off"
-          }
-        ],
-        "4.1": [
-          {
-            "start": "10:00",
-            "end": "12:00",
-            "status": "off"
-          },
-          {
-            "start": "22:00",
-            "end": "24:00",
-            "status": "off"
-          }
-        ],
-        "4.2": [
-          {
-            "start": "10:00",
-            "end": "12:00",
-            "status": "off"
-          },
-          {
-            "start": "18:00",
-            "end": "20:00",
-            "status": "off"
-          },
-          {
-            "start": "22:00",
-            "end": "24:00",
-            "status": "off"
-          }
-        ],
-        "5.1": [
-          {
-            "start": "10:00",
-            "end": "12:00",
-            "status": "off"
-          },
-          {
-            "start": "14:00",
-            "end": "16:00",
-            "status": "off"
-          },
-          {
-            "start": "18:00",
-            "end": "20:00",
-            "status": "off"
-          }
-        ],
-        "5.2": [
-          {
-            "start": "14:00",
-            "end": "16:00",
-            "status": "off"
-          },
-          {
-            "start": "22:00",
-            "end": "24:00",
-            "status": "off"
-          }
-        ],
         "6.1": [
           {
             "start": "06:00",
             "end": "08:00",
-            "status": "off"
-          },
-          {
-            "start": "14:00",
-            "end": "16:00",
-            "status": "off"
-          },
-          {
-            "start": "18:00",
-            "end": "20:00",
             "status": "off"
           }
         ],
@@ -263,16 +113,6 @@
           {
             "start": "06:00",
             "end": "08:00",
-            "status": "off"
-          },
-          {
-            "start": "14:00",
-            "end": "16:00",
-            "status": "off"
-          },
-          {
-            "start": "18:00",
-            "end": "20:00",
             "status": "off"
           }
         ]
