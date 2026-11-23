@@ -1,6 +1,6 @@
 {
   "timezone": "Europe/Kyiv",
-  "last_post_time": "19:26",
+  "last_post_time": "20:36",
   "schedules": {
     "2026-11-22": {
       "subqueues": {
@@ -433,6 +433,309 @@
           {
             "start": "11:00",
             "end": "12:00",
+            "status": "off"
+          },
+          {
+            "start": "14:00",
+            "end": "16:00",
+            "status": "off"
+          },
+          {
+            "start": "17:00",
+            "end": "20:00",
+            "status": "off"
+          },
+          {
+            "start": "22:00",
+            "end": "24:00",
+            "status": "off"
+          }
+        ]
+      }
+    },
+    "2026-11-24": {
+      "subqueues": {
+        "1.1": [
+          {
+            "start": "04:00",
+            "end": "06:00",
+            "status": "off"
+          },
+          {
+            "start": "08:00",
+            "end": "10:00",
+            "status": "off"
+          },
+          {
+            "start": "12:00",
+            "end": "14:00",
+            "status": "off"
+          },
+          {
+            "start": "15:00",
+            "end": "18:00",
+            "status": "off"
+          }
+        ],
+        "1.2": [
+          {
+            "start": "04:00",
+            "end": "06:00",
+            "status": "off"
+          },
+          {
+            "start": "12:00",
+            "end": "14:00",
+            "status": "off"
+          },
+          {
+            "start": "16:00",
+            "end": "18:00",
+            "status": "off"
+          },
+          {
+            "start": "20:00",
+            "end": "22:00",
+            "status": "off"
+          }
+        ],
+        "2.1": [
+          {
+            "start": "08:00",
+            "end": "10:00",
+            "status": "off"
+          },
+          {
+            "start": "12:00",
+            "end": "14:00",
+            "status": "off"
+          },
+          {
+            "start": "16:00",
+            "end": "19:00",
+            "status": "off"
+          },
+          {
+            "start": "20:00",
+            "end": "22:00",
+            "status": "off"
+          }
+        ],
+        "2.2": [
+          {
+            "start": "08:00",
+            "end": "10:00",
+            "status": "off"
+          },
+          {
+            "start": "12:00",
+            "end": "15:00",
+            "status": "off"
+          },
+          {
+            "start": "16:00",
+            "end": "18:00",
+            "status": "off"
+          },
+          {
+            "start": "20:00",
+            "end": "22:00",
+            "status": "off"
+          }
+        ],
+        "3.1": [
+          {
+            "start": "00:00",
+            "end": "02:00",
+            "status": "off"
+          },
+          {
+            "start": "08:00",
+            "end": "10:00",
+            "status": "off"
+          },
+          {
+            "start": "12:00",
+            "end": "14:00",
+            "status": "off"
+          },
+          {
+            "start": "16:00",
+            "end": "18:00",
+            "status": "off"
+          },
+          {
+            "start": "20:00",
+            "end": "22:00",
+            "status": "off"
+          }
+        ],
+        "3.2": [
+          {
+            "start": "00:00",
+            "end": "02:00",
+            "status": "off"
+          },
+          {
+            "start": "08:00",
+            "end": "10:00",
+            "status": "off"
+          },
+          {
+            "start": "12:00",
+            "end": "14:00",
+            "status": "off"
+          },
+          {
+            "start": "16:00",
+            "end": "18:00",
+            "status": "off"
+          },
+          {
+            "start": "19:00",
+            "end": "22:00",
+            "status": "off"
+          }
+        ],
+        "4.1": [
+          {
+            "start": "02:00",
+            "end": "04:00",
+            "status": "off"
+          },
+          {
+            "start": "06:00",
+            "end": "08:00",
+            "status": "off"
+          },
+          {
+            "start": "10:00",
+            "end": "12:00",
+            "status": "off"
+          },
+          {
+            "start": "14:00",
+            "end": "16:00",
+            "status": "off"
+          },
+          {
+            "start": "18:00",
+            "end": "20:00",
+            "status": "off"
+          }
+        ],
+        "4.2": [
+          {
+            "start": "02:00",
+            "end": "04:00",
+            "status": "off"
+          },
+          {
+            "start": "06:00",
+            "end": "08:00",
+            "status": "off"
+          },
+          {
+            "start": "10:00",
+            "end": "12:00",
+            "status": "off"
+          },
+          {
+            "start": "14:00",
+            "end": "16:00",
+            "status": "off"
+          },
+          {
+            "start": "18:00",
+            "end": "20:00",
+            "status": "off"
+          },
+          {
+            "start": "22:00",
+            "end": "24:00",
+            "status": "off"
+          }
+        ],
+        "5.1": [
+          {
+            "start": "06:00",
+            "end": "08:00",
+            "status": "off"
+          },
+          {
+            "start": "10:00",
+            "end": "12:00",
+            "status": "off"
+          },
+          {
+            "start": "13:00",
+            "end": "16:00",
+            "status": "off"
+          },
+          {
+            "start": "18:00",
+            "end": "20:00",
+            "status": "off"
+          },
+          {
+            "start": "22:00",
+            "end": "24:00",
+            "status": "off"
+          }
+        ],
+        "5.2": [
+          {
+            "start": "10:00",
+            "end": "13:00",
+            "status": "off"
+          },
+          {
+            "start": "14:00",
+            "end": "16:00",
+            "status": "off"
+          },
+          {
+            "start": "18:00",
+            "end": "20:00",
+            "status": "off"
+          },
+          {
+            "start": "22:00",
+            "end": "24:00",
+            "status": "off"
+          }
+        ],
+        "6.1": [
+          {
+            "start": "06:00",
+            "end": "08:00",
+            "status": "off"
+          },
+          {
+            "start": "10:00",
+            "end": "12:00",
+            "status": "off"
+          },
+          {
+            "start": "14:00",
+            "end": "17:00",
+            "status": "off"
+          },
+          {
+            "start": "18:00",
+            "end": "20:00",
+            "status": "off"
+          },
+          {
+            "start": "22:00",
+            "end": "24:00",
+            "status": "off"
+          }
+        ],
+        "6.2": [
+          {
+            "start": "06:00",
+            "end": "08:00",
             "status": "off"
           },
           {
