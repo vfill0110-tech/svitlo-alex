@@ -1,6 +1,6 @@
 {
   "timezone": "Europe/Kyiv",
-  "last_post_time": "06:51",
+  "last_post_time": "09:29",
   "schedules": {
     "2026-11-27": {
       "subqueues": {
@@ -324,6 +324,11 @@
             "status": "off"
           },
           {
+            "start": "12:00",
+            "end": "14:00",
+            "status": "off"
+          },
+          {
             "start": "16:00",
             "end": "18:00",
             "status": "off"
@@ -338,6 +343,11 @@
           {
             "start": "08:00",
             "end": "10:00",
+            "status": "off"
+          },
+          {
+            "start": "12:00",
+            "end": "14:00",
             "status": "off"
           },
           {
@@ -382,6 +392,11 @@
           {
             "start": "04:00",
             "end": "06:00",
+            "status": "off"
+          },
+          {
+            "start": "12:00",
+            "end": "14:00",
             "status": "off"
           },
           {
@@ -456,6 +471,16 @@
             "status": "off"
           },
           {
+            "start": "10:30",
+            "end": "12:00",
+            "status": "off"
+          },
+          {
+            "start": "14:00",
+            "end": "16:00",
+            "status": "off"
+          },
+          {
             "start": "18:00",
             "end": "20:00",
             "status": "off"
@@ -473,6 +498,16 @@
             "status": "off"
           },
           {
+            "start": "10:00",
+            "end": "12:00",
+            "status": "off"
+          },
+          {
+            "start": "14:00",
+            "end": "16:00",
+            "status": "off"
+          },
+          {
             "start": "18:00",
             "end": "20:00",
             "status": "off"
@@ -487,6 +522,11 @@
           {
             "start": "06:00",
             "end": "07:00",
+            "status": "off"
+          },
+          {
+            "start": "10:30",
+            "end": "12:00",
             "status": "off"
           },
           {
@@ -563,6 +603,11 @@
           {
             "start": "10:00",
             "end": "12:00",
+            "status": "off"
+          },
+          {
+            "start": "14:00",
+            "end": "16:00",
             "status": "off"
           },
           {
